@@ -1,0 +1,19 @@
+<span v-if="loading">Loading &hellip;</span>
+<template v-if="errorMessage">
+    <span class="error">{{errorMessage}}</span>
+</template>
+
+<template v-if="images">
+    <div class="imageContainer">
+        <div class="selectableImage"
+            v-for="image in images"
+            track-by="key"
+            @click="selectImage($index)"
+        >
+            <img :class="{
+                imageElement: true,
+                selected: image.selected
+            }" :src="image.src">
+        </div>
+    </div>
+</template>

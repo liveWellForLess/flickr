@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Storage from './storage';
+import template from './template.html!text';
 
 function render (options) {
 	const container = options.element;
@@ -30,6 +31,7 @@ function render (options) {
 
 	new Vue({
 		el: container,
+		template: template,
 		data: model,
 		methods: {
 			selectImage: function (index) {
@@ -40,7 +42,9 @@ function render (options) {
 				}));
 				imageStore[action](item.key);
 			}
-		}
+		},
+		ready: options.ready,
+		destroyed: options.destroyed
 	});
 }
 
