@@ -1,0 +1,6 @@
+{
+	"name": "flickr",
+	"version": "1.0.0",
+	"description": "Play with flickr service",
+	"private": true
+}
