@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="jspm_packages/system.js"></script>
+    <script src="config.js"></script>
+    <script type="text/javascript">
+    (function () {
+
+        function cb(data) {
+            // Don't call cb again
+            window.cb = function () {};
+
+            System.import('src/index.js').then(function (module) {
+                module.render({
+                    data: data,
+                    element: document.body
+                });
+            }).catch(function (ex) {
+                console.error(ex)
+                document.querySelector('.imageContainer').innerText = 'Something went wrong.';
+            });
+        }
+
+        // cb has to be defined globally to be called by the api
+        window.cb = cb;
+
+        var tags = 'london';
+        var script = document.createElement('script');
+        script.src = 'http://api.flickr.com/services/feeds/photos_public.gne?format=json&jsoncallback=cb&tags='+tags;
+        document.head.appendChild(script);
+    })();
+    </script>
+</head>
+<body>
+    <span v-if="loading">Loading &hellip;</span>
+    <template v-if="errorMessage">
+        <span>{{errorMessage}}</span>
+    </template>
+
+    <template v-if="images">
+        <div class="imageContainer">
+            <div class="selectableImage"
+                v-for="image in images"
+                track-by="key"
+                @click="selectImage($index)"
+            >
+                <img :class="{
+                    imageElement: true,
+                    selected: image.selected
+                }" :src="image.src">
+            </div>
+        </div>
+    </template>
+</body>
+</html>

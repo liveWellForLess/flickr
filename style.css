@@ -1,0 +1,16 @@
+.imageElement {
+	border: 3px solid transparent;
+}
+.selected {
+	border: 3px dashed pink;
+}
+
+.imageContainer {
+	display: flex;
+	flex-flow: row wrap;
+}
+
+.selectableImage {
+	flex: 0 0 auto;
+	margin: 1em;
+}
